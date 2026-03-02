@@ -8,7 +8,7 @@ public class Item {
     private String currLoc;
     private String[] allLocs;
     private int quantity;
-    private LocalDateTime dateRec;
+    private String[] dateRec;
     private DateTimeFormatter formatter;
 
     /**
@@ -20,7 +20,7 @@ public class Item {
      * @param quantity -> How many of the item there are
      * @param dateRec -> The date it was received
      */
-    public Item(String name, String currLoc, int quantity, LocalDateTime dateRec) {
+    public Item(String name, String currLoc, int quantity, String[] dateRec) {
         this.name = name;
         this.currLoc = currLoc;
         this.quantity = quantity;
