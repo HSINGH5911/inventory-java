@@ -37,7 +37,7 @@ public class Main {
         quantLabel.setBounds(100, 200, 150, 25);
         frame.add(quantLabel);
 
-        JLabel dateLabel = new JLabel("Enter date");
+        JLabel dateLabel = new JLabel("Enter date: ");
         dateLabel.setBounds(100,250,150,25);
         frame.add(dateLabel);
     }
@@ -75,19 +75,21 @@ public class Main {
      * @param frame -> JFrame object to add items onto
      * @return -> The quantity
      */
-    private static String getQuantity(JFrame frame) {
+    private static int getQuantity(JFrame frame) {
         JTextField quantField = new JTextField();
         quantField.setBounds(250, 200, 150, 25);
         String quant = quantField.getText();
         frame.add(quantField);
 
-        return quant;
+        return Integer.parseInt(quant);
     }
 
-    private static void getDate(JFrame frame) {
+    private static String[] getDate(JFrame frame) {
         JComboBox<String> months = new JComboBox<>();
         JComboBox<String> days = new JComboBox<>();
         JComboBox<String> years = new JComboBox<>();
+
+        String[] date = new String[3];
 
         months.setBounds(250,250,50,25);
         days.setBounds(300,250,50,25);
@@ -106,26 +108,31 @@ public class Main {
         }
 
         years.setSelectedIndex(3);
-
         frame.add(months); frame.add(days); frame.add(years);
+
+        date[0] = (String) months.getSelectedItem();
+        date[1] = (String) days.getSelectedItem();
+        date[2] = (String) years.getSelectedItem();
+
+        return date;
 
     }
 
 
     private static void submitInfo(JFrame frame) {
         JButton submit = new JButton("Submit");
-        submit.setBounds(250,400,100,25);
+        submit.setBounds(150,300,100,25);
 
         submit.addActionListener(e ->
         {
             String name = getItemName(frame);
             String location = getCurrLoc(frame);
-            int quantity = Integer.parseInt(getQuantity(frame));
-            //String[] date = getDate(frame);
-            //Item item = new Item(name, location, quantity, date);
+            int quantity = getQuantity(frame);
+            String[] date = getDate(frame);
+            Item item = new Item(name, location, quantity, date);
+            System.out.println(item);
         });
+
         frame.add(submit);
     }
-
-
 }

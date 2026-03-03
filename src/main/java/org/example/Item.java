@@ -51,4 +51,13 @@ public class Item {
         allLocs[0] = currLoc;
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : dateRec) {
+            sb.append(s);
+        }
+
+        return sb.toString();
+    }
 }
