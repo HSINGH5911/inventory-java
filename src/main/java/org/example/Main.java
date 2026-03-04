@@ -1,138 +1,133 @@
 package org.example;
 
-import javax.security.auth.kerberos.KerberosCredMessage;
 import javax.swing.*;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Main {
+
+    private static JTextField nameField;
+    private static JTextField locField;
+    private static JTextField quantField;
+    private static JComboBox<String> months;
+    private static JComboBox<String> days;
+    private static JComboBox<String> years;
+
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setSize(800,800);
+
+        JFrame frame = new JFrame("Inventory Input");
+        frame.setSize(800, 800);
         frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setUp(frame);
-        getItemName(frame);
-        getCurrLoc(frame);
-        getQuantity(frame);
-        submitInfo(frame);
-        getDate(frame);
+        createFields(frame);
+        selectDate(frame);
+        submitButton(frame);
+        clearButton(frame);
 
         frame.setVisible(true);
     }
 
-    /**
-     * Setup the GUI
-     */
     private static void setUp(JFrame frame) {
-        JLabel itemLabel = new JLabel("Enter item name: ");
-        itemLabel.setBounds(100,100, 150,25);
+
+        JLabel itemLabel = new JLabel("Enter item name:");
+        itemLabel.setBounds(100, 100, 150, 25);
         frame.add(itemLabel);
 
-        JLabel currLabel = new JLabel("Enter current address: ");
+        JLabel currLabel = new JLabel("Enter current address:");
         currLabel.setBounds(100, 150, 150, 25);
         frame.add(currLabel);
 
-        JLabel quantLabel = new JLabel("Enter quantity: ");
+        JLabel quantLabel = new JLabel("Enter quantity:");
         quantLabel.setBounds(100, 200, 150, 25);
         frame.add(quantLabel);
 
-        JLabel dateLabel = new JLabel("Enter date: ");
-        dateLabel.setBounds(100,250,150,25);
+        JLabel dateLabel = new JLabel("Enter date:");
+        dateLabel.setBounds(100, 250, 150, 25);
         frame.add(dateLabel);
     }
 
-    /**
-     * Get the name of the item
-     * @param frame -> JFrame object to add items onto
-     * @return -> The item name
-     */
-    private static String getItemName(JFrame frame) {
-        JTextField nameField = new JTextField();
+    private static void createFields(JFrame frame) {
+
+        nameField = new JTextField();
         nameField.setBounds(250, 100, 150, 25);
-        String name = nameField.getText();
         frame.add(nameField);
 
-        return name;
-    }
-
-    /**
-     * Get the current location of the item
-     * @param frame -> JFrame object to add items onto
-     * @return -> The current location
-     */
-    private static String getCurrLoc(JFrame frame) {
-        JTextField locField = new JTextField();
+        locField = new JTextField();
         locField.setBounds(250, 150, 150, 25);
-        String currLoc = locField.getText();
         frame.add(locField);
 
-        return currLoc;
-    }
-
-    /**
-     * Get the quantity of the item
-     * @param frame -> JFrame object to add items onto
-     * @return -> The quantity
-     */
-    private static int getQuantity(JFrame frame) {
-        JTextField quantField = new JTextField();
+        quantField = new JTextField();
         quantField.setBounds(250, 200, 150, 25);
-        String quant = quantField.getText();
         frame.add(quantField);
-
-        return Integer.parseInt(quant);
     }
 
-    private static String[] getDate(JFrame frame) {
-        JComboBox<String> months = new JComboBox<>();
-        JComboBox<String> days = new JComboBox<>();
-        JComboBox<String> years = new JComboBox<>();
+    private static void selectDate(JFrame frame) {
 
-        String[] date = new String[3];
+        months = new JComboBox<>();
+        days = new JComboBox<>();
+        years = new JComboBox<>();
 
-        months.setBounds(250,250,50,25);
-        days.setBounds(300,250,50,25);
-        years.setBounds(350,250,100,25);
+        months.setBounds(250, 250, 50, 25);
+        days.setBounds(310, 250, 50, 25);
+        years.setBounds(370, 250, 80, 25);
 
-        for (int i = 1; i < 13; i++) {
+        for (int i = 1; i <= 12; i++) {
             months.addItem(String.valueOf(i));
         }
 
-        for (int i = 1; i < 32; i++) {
+        for (int i = 1; i <= 31; i++) {
             days.addItem(String.valueOf(i));
         }
 
-        for (int i = 0; i < 5; i++) {
-            years.addItem(String.valueOf(i + 2023));
+        for (int i = 2023; i <= 2027; i++) {
+            years.addItem(String.valueOf(i));
         }
 
-        years.setSelectedIndex(3);
-        frame.add(months); frame.add(days); frame.add(years);
-
-        date[0] = (String) months.getSelectedItem();
-        date[1] = (String) days.getSelectedItem();
-        date[2] = (String) years.getSelectedItem();
-
-        return date;
-
+        frame.add(months);
+        frame.add(days);
+        frame.add(years);
     }
 
+    private static void submitButton(JFrame frame) {
 
-    private static void submitInfo(JFrame frame) {
         JButton submit = new JButton("Submit");
-        submit.setBounds(150,300,100,25);
+        submit.setBounds(150, 300, 100, 30);
 
-        submit.addActionListener(e ->
-        {
-            String name = getItemName(frame);
-            String location = getCurrLoc(frame);
-            int quantity = getQuantity(frame);
-            String[] date = getDate(frame);
-            Item item = new Item(name, location, quantity, date);
-            System.out.println(item);
+        submit.addActionListener(e -> {
+            try {
+                String name = nameField.getText();
+                String location = locField.getText();
+                int quantity = Integer.parseInt(quantField.getText());
+
+                String month = (String) months.getSelectedItem();
+                String day = (String) days.getSelectedItem();
+                String year = (String) years.getSelectedItem();
+
+                String[] date = {month, day, year};
+
+                Item item = new Item(name, location, quantity, date);
+                System.out.println(item);
+
+                JOptionPane.showMessageDialog(frame, "Item submitted successfully!");
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter a valid quantity.");
+            }
         });
 
         frame.add(submit);
+    }
+
+    private static void clearButton(JFrame frame) {
+        JButton clear = new JButton("Clear");
+        clear.setBounds(300,300,100,30);
+
+        clear.addActionListener(e -> {
+            nameField.setText("");
+            locField.setText("");
+            quantField.setText("");
+        });
+
+        frame.add(clear);
     }
 }
