@@ -12,22 +12,82 @@ public class Main {
     private static JComboBox<String> years;
 
     public static void main(String[] args) {
+        setUpLanding();
 
-        JFrame frame = new JFrame("Inventory Input");
-        frame.setSize(800, 800);
-        frame.setLayout(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setUp(frame);
-        createFields(frame);
-        selectDate(frame);
-        submitButton(frame);
-        clearButton(frame);
 
-        frame.setVisible(true);
+
+
     }
 
-    private static void setUp(JFrame frame) {
+    /**
+     * Sets up the landing page
+     */
+    private static void setUpLanding() {
+        JFrame landingFrame = new JFrame("Home Page");
+        landingFrame.setSize(500,500);
+        landingFrame.setLayout(null);
+        landingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        directToEntry(landingFrame);
+        directToLookup(landingFrame);
+
+        landingFrame.setVisible(true);
+    }
+
+    /**
+     * Direct user to enter an item
+     * @param frame -> The landing frame
+     */
+    private static void directToEntry(JFrame frame) {
+        JButton dirEntry = new JButton("Add a new entry");
+        dirEntry.setBounds(100,200,100, 30);
+
+        dirEntry.addActionListener( e -> {
+            entryPage();
+        });
+
+        frame.add(dirEntry);
+    }
+
+    /**
+     * Directs user to the lookup frame
+     * @param frame -> The landing frame
+     */
+    private static void directToLookup(JFrame frame) {
+        JButton dirLookup = new JButton("Look up an item");
+        dirLookup.setBounds(250,200,100,30);
+
+        dirLookup.addActionListener(e -> {
+            lookUp();
+        });
+
+        frame.add(dirLookup);
+    }
+
+    /**
+     * Show the methods associated with entering info of an item
+     */
+    private static void entryPage() {
+        JFrame entryFrame = new JFrame("Inventory Input");
+        entryFrame.setSize(800, 800);
+        entryFrame.setLayout(null);
+        entryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setUpForEntry(entryFrame);
+        createFieldsForEntry(entryFrame);
+        selectDate(entryFrame);
+        submitButtonForEntry(entryFrame);
+        clearButtonForEntry(entryFrame);
+
+        entryFrame.setVisible(true);
+    }
+
+    /**
+     * Sets up the labels for the entry of the items
+     * @param frame -> The frame being used
+     */
+    private static void setUpForEntry(JFrame frame) {
 
         JLabel itemLabel = new JLabel("Enter item name:");
         itemLabel.setBounds(100, 100, 150, 25);
@@ -46,7 +106,11 @@ public class Main {
         frame.add(dateLabel);
     }
 
-    private static void createFields(JFrame frame) {
+    /**
+     * Creates the fields for entering the info of the item
+     * @param frame -> The frame being used
+     */
+    private static void createFieldsForEntry(JFrame frame) {
 
         nameField = new JTextField();
         nameField.setBounds(250, 100, 150, 25);
@@ -61,6 +125,10 @@ public class Main {
         frame.add(quantField);
     }
 
+    /**
+     * Selects the date of the entry of the item
+     * @param frame -> The frame being used
+     */
     private static void selectDate(JFrame frame) {
 
         months = new JComboBox<>();
@@ -88,7 +156,11 @@ public class Main {
         frame.add(years);
     }
 
-    private static void submitButton(JFrame frame) {
+    /**
+     * Creates the button that submits info of item
+     * @param frame -> The frame being used
+     */
+    private static void submitButtonForEntry(JFrame frame) {
 
         JButton submit = new JButton("Submit");
         submit.setBounds(150, 300, 100, 30);
@@ -118,7 +190,11 @@ public class Main {
         frame.add(submit);
     }
 
-    private static void clearButton(JFrame frame) {
+    /**
+     * Clears all the info in the text fields
+     * @param frame -> The frame being used
+     */
+    private static void clearButtonForEntry(JFrame frame) {
         JButton clear = new JButton("Clear");
         clear.setBounds(300,300,100,30);
 
@@ -129,5 +205,14 @@ public class Main {
         });
 
         frame.add(clear);
+    }
+
+    private static void lookUp() {
+        JFrame lookup = new JFrame("Look Up");
+        lookup.setSize(800,800);
+        lookup.setLayout(null);
+        lookup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        lookup.setVisible(true);
     }
 }
