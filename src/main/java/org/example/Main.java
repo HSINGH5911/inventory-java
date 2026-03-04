@@ -14,10 +14,6 @@ public class Main {
     public static void main(String[] args) {
         setUpLanding();
 
-
-
-
-
     }
 
     /**
@@ -207,12 +203,41 @@ public class Main {
         frame.add(clear);
     }
 
+    /**
+     * Creates a new frame to look up an item
+     */
     private static void lookUp() {
         JFrame lookup = new JFrame("Look Up");
         lookup.setSize(800,800);
         lookup.setLayout(null);
         lookup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        searchBar(lookup);
+
         lookup.setVisible(true);
     }
+
+    /**
+     * Adds a search bar to the frame for lookup
+     * @param frame -> The lookup frame
+     */
+    private static void searchBar(JFrame frame) {
+        JLabel searchLabel = new JLabel("Enter item name: ");
+        searchLabel.setBounds(150,150,100,30);
+
+        JTextField search = new JTextField();
+        search.setBounds(250,150,200,30);
+
+        JButton submitSearch = new JButton("submit");
+        submitSearch.setBounds(200,200, 100, 30);
+
+        submitSearch.addActionListener(e -> {
+            System.out.println();
+        });
+
+        frame.add(searchLabel);
+        frame.add(search);
+        frame.add(submitSearch);
+    }
+
 }
