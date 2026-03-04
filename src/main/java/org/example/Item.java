@@ -2,6 +2,8 @@ package org.example;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Item {
     private String name;
@@ -10,6 +12,7 @@ public class Item {
     private int quantity;
     private String[] dateRec;
     private DateTimeFormatter formatter;
+    private HashMap<ArrayList<String>, ArrayList<String>> adressesAndQuant;
 
     /**
      * Construct the object with the object name, current location, where it was before, quantity
@@ -26,6 +29,7 @@ public class Item {
         this.quantity = quantity;
         this.dateRec = dateRec;
         allLocs = new String[10];
+        adressesAndQuant = new HashMap<>();
     }
 
     private String getName() {
@@ -49,6 +53,12 @@ public class Item {
             allLocs[i] = allLocs[i - 1];
         }
         allLocs[0] = currLoc;
+    }
+
+    public void addNewEntry(String address, int amount) {
+        if (!adressesAndQuant.containsKey(address)) {
+
+        }
     }
 
     public String toString() {
