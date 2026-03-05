@@ -44,4 +44,9 @@ public class ItemManager {
             System.out.println(item);
         }
     }
+
+    public boolean contains(String name) {
+        return inventory.containsKey(name);
+    }
+
 }

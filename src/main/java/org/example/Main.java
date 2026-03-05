@@ -10,9 +10,12 @@ public class Main {
     private static JComboBox<String> months;
     private static JComboBox<String> days;
     private static JComboBox<String> years;
+    private static ItemManager item;
 
     public static void main(String[] args) {
+        item = new ItemManager();
         setUpLanding();
+
 
     }
 
@@ -173,10 +176,9 @@ public class Main {
 
                 String[] date = {month, day, year};
 
-                Item item = new Item(name, location, quantity, date);
-                System.out.println(item);
-
-                JOptionPane.showMessageDialog(frame, "Item submitted successfully!");
+                item.addItem(name, location, quantity);
+                
+                frame.setVisible(false);
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "Please enter a valid quantity.");
@@ -228,11 +230,17 @@ public class Main {
         JTextField search = new JTextField();
         search.setBounds(250,150,200,30);
 
+
         JButton submitSearch = new JButton("submit");
         submitSearch.setBounds(200,200, 100, 30);
 
         submitSearch.addActionListener(e -> {
-            System.out.println();
+            String find = search.getText();
+            if (item.contains(find)) {
+                System.out.println(item.getItem(find));
+            } else {
+                JOptionPane.showMessageDialog(frame, "Item does not exist");
+            }
         });
 
         frame.add(searchLabel);
