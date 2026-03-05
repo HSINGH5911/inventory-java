@@ -4,30 +4,45 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Item {
-    private String name;
+    private String address;
     private Map<String, Integer> quantityPerLoc;
 
     /**
-     * Construct the object with the object name, current location, where it was before, quantity
+     * Construct the object with the object address
      * and the date it was received
      *
-     * @param name -> Item name
+     * @param name -> Item address
      */
     public Item(String name) {
-        this.name = name;
+        this.address = name;
         this.quantityPerLoc = new HashMap<>();
     }
 
-    public void addItem(String item, String address, int amount) {
+    /**
+     * Adds the adress and the amount present
+     *
+     * @param address -> The address of the user
+     * @param amount -> The amount of the item present
+     */
+    public void addItem(String address, int amount) {
         quantityPerLoc.put(address, quantityPerLoc.getOrDefault(address, 0) + amount);
     }
 
+    /**
+     * Gets the quantity of the item present at the address given
+     *
+     * @param address -> The address the user wants to know
+     * @return -> number of item present at that location
+     */
     public int getQuantity(String address) {
         return quantityPerLoc.getOrDefault(address, 0);
     }
 
-    public String getName() {
-        return name;
+    /**
+     * Get the address
+     * @return -> address
+     */
+    public String getAddress() {
+        return address;
     }
-
 }
