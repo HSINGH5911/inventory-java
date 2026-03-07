@@ -23,7 +23,6 @@ public class ItemManager {
         Item item = inventory.getOrDefault(name, new Item(name));
         item.addItem(location, quantity);
         inventory.put(name, item);
-
     }
 
     /**
@@ -39,10 +38,15 @@ public class ItemManager {
     /**
      * Print out the items
      */
-    public void printItems() {
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
         for (Item item : inventory.values()) {
-            System.out.println(item);
+            sb.append(item);
+            sb.append("\n");
         }
+
+        return sb.toString();
     }
 
     public boolean contains(String name) {

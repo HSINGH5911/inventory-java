@@ -78,6 +78,7 @@ public class Main {
         selectDate(entryFrame);
         submitButtonForEntry(entryFrame);
         clearButtonForEntry(entryFrame);
+        closeEntry(entryFrame);
 
         entryFrame.setVisible(true);
     }
@@ -177,15 +178,30 @@ public class Main {
                 String[] date = {month, day, year};
 
                 item.addItem(name, location, quantity);
-                
-                frame.setVisible(false);
 
+                JLabel confirm = new JLabel("Item added: " + name);
+                confirm.setBounds(150,500,100,30);
+                frame.add(confirm);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "Please enter a valid quantity.");
             }
         });
-
         frame.add(submit);
+    }
+
+    /**
+     * Method to close the entry page
+     *
+     * @param frame -> The frame being worked in
+     */
+    private static void closeEntry(JFrame frame) {
+        JButton close = new JButton("close");
+        close.setBounds(350,300,100,30);
+
+        close.addActionListener(e -> {
+            frame.setVisible(false);
+        });
+        frame.add(close);
     }
 
     /**
@@ -194,7 +210,7 @@ public class Main {
      */
     private static void clearButtonForEntry(JFrame frame) {
         JButton clear = new JButton("Clear");
-        clear.setBounds(300,300,100,30);
+        clear.setBounds(250,300,100,30);
 
         clear.addActionListener(e -> {
             nameField.setText("");
@@ -230,22 +246,63 @@ public class Main {
         JTextField search = new JTextField();
         search.setBounds(250,150,200,30);
 
+        submitSearch(frame, search);
+        closeSearch(frame);
 
+        frame.add(searchLabel);
+        frame.add(search);
+    }
+
+    /**
+     * Method that creates the button for submitting the search
+     *
+     * @param frame -> The frame being worked in
+     * @param search -> The search bar of the text being passed in
+     */
+    private static void submitSearch(JFrame frame, JTextField search) {
         JButton submitSearch = new JButton("submit");
         submitSearch.setBounds(200,200, 100, 30);
 
         submitSearch.addActionListener(e -> {
             String find = search.getText();
             if (item.contains(find)) {
-                System.out.println(item.getItem(find));
+                showMatches(frame);
             } else {
                 JOptionPane.showMessageDialog(frame, "Item does not exist");
             }
         });
 
-        frame.add(searchLabel);
-        frame.add(search);
         frame.add(submitSearch);
+    }
+
+    /**
+     * Method that makes a button for closing the search frame
+     *
+     * @param frame -> The frame being worked in
+     */
+    private static void closeSearch(JFrame frame) {
+        JButton closeSearch = new JButton("Close");
+        closeSearch.setBounds(350,200, 100,30);
+
+        closeSearch.addActionListener(e -> {
+            frame.setVisible(false);
+        });
+
+        frame.add(closeSearch);
+    }
+
+    private static void showMatches(JFrame frame) {
+        JLabel address = new JLabel("Address");
+        address.setBounds(200,250,100,30);
+
+        JLabel disp = new JLabel();
+        disp.setBounds(200,300,100,100);
+        disp.setText(item.toString());
+
+        frame.add(address);
+        frame.add(disp);
+        frame.revalidate();
+        frame.repaint();
     }
 
 }

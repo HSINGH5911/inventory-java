@@ -45,4 +45,15 @@ public class Item {
     public String getAddress() {
         return address;
     }
+
+   public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : quantityPerLoc.keySet()) {
+            sb.append(s + " ");
+            sb.append(quantityPerLoc.get(s));
+        }
+
+        return sb.toString();
+   }
 }
