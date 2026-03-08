@@ -46,6 +46,18 @@ public class Item {
         return address;
     }
 
+    /**
+     * Removes a location if its been moved to a new location
+     * @param location -> The location to replace the old one
+     */
+    public void removeLocation(String location) {
+        quantityPerLoc.remove(location);
+    }
+
+    /**
+     * Creates a SB with all the items in the keyset sep. by a space
+     * @return -> SB with the items in the keyset
+     */
    public String toString() {
         StringBuilder sb = new StringBuilder();
 
