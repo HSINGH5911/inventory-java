@@ -53,10 +53,10 @@ public class ItemManager {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        Formatter fmt = new Formatter(sb);
 
         for (Item item : inventory.values()) {
-            sb.append(item);
-            sb.append("\n");
+            fmt.format("%s%31s%n", item.getQuantity(item.getAddress()), item.getAddress());
         }
 
         return sb.toString();

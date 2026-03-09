@@ -94,7 +94,7 @@ public class Main {
         frame.add(currLabel);
 
         // Gets the address it came from
-        JLabel dateLabel = new JLabel("Enter date:");
+        JLabel dateLabel = new JLabel("Enter previous address:");
         dateLabel.setBounds(100, 200, 150, 25);
         frame.add(dateLabel);
 
@@ -264,13 +264,17 @@ public class Main {
     }
 
     private static void showMatches(JFrame frame) {
+        JLabel quantity = new JLabel("Quantity");
+        quantity.setBounds(200,250,100,30);
+
         JLabel address = new JLabel("Address");
-        address.setBounds(200,250,100,30);
+        address.setBounds(300,250,100,30);
 
         JLabel disp = new JLabel();
-        disp.setBounds(200,300,100,100);
+        disp.setBounds(200,250,300,100);
         disp.setText(item.toString());
 
+        frame.add(quantity);
         frame.add(address);
         frame.add(disp);
         frame.revalidate();
